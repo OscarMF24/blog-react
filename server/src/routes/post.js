@@ -14,13 +14,13 @@ const router = Router()
 
 router.get('/api/posts', index)
 
+router.post('/api/posts', store)
+
 router.get('/api/post/:id', show)
 
-router.post('/api/post/store', store)
+router.patch('/api/post/:id', update)
 
-router.patch('/api/post/update/:id', update)
-
-router.delete('/api/post/delete/:id', destroy)
+router.delete('/api/post/:id', destroy)
 
 router.get('/api/posts/search', search)
 

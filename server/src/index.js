@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import dotenv from 'dotenv'
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import { connectDB } from './database.js'
 import { router as postRoutes } from './routes/post.js'
@@ -17,6 +18,7 @@ const app = express()
 app.set('port', process.env.PORT || 3000)
 
 app.use(morgan('dev'))
+app.use(cors())
 app.use(bodyParser.json())
 
 app.use(postRoutes)
