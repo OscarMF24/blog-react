@@ -1,21 +1,27 @@
+'use strict'
+
 import { Router } from 'express'
+import {
+  index,
+  show,
+  store,
+  search,
+  update,
+  destroy
+} from '../controllers/PostController.js'
 
 const router = Router()
 
-router.get('/api/posts', (req, res) => {
-  //
-})
+router.get('/api/posts', index)
 
-router.get('/api/post/:id', (req, res) => {
-  //
-})
+router.get('/api/post/:id', show)
 
-router.get('/api/posts/search', (req, res) => {
-  //
-})
+router.post('/api/post/store', store)
 
-router.post('/api/post/store', (req, res) => {
-  //
-})
+router.patch('/api/post/update/:id', update)
 
-export default router
+router.delete('/api/post/delete/:id', destroy)
+
+router.get('/api/posts/search', search)
+
+export { router }

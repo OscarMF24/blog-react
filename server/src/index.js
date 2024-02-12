@@ -1,14 +1,23 @@
-import express from 'express'
-import morgan from 'morgan'
+'use strict'
 
-import postRoutes from './routes/post.js'
-import authRoutes from './routes/auth.js'
+import morgan from 'morgan'
+import dotenv from 'dotenv'
+import express from 'express'
+import bodyParser from 'body-parser'
+
+import { connectDB } from './database.js'
+import { router as postRoutes } from './routes/post.js'
+import { router as authRoutes } from './routes/auth.js'
+
+dotenv.config()
+connectDB()
 
 const app = express()
 
 app.set('port', process.env.PORT || 3000)
 
 app.use(morgan('dev'))
+app.use(bodyParser.json())
 
 app.use(postRoutes)
 app.use(authRoutes)
