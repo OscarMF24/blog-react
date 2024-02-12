@@ -1,6 +1,7 @@
 'use strict'
 
 import { Schema, model } from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const postSchema = new Schema(
   {
@@ -22,6 +23,8 @@ const postSchema = new Schema(
     versionKey: false
   }
 )
+
+postSchema.plugin(mongoosePaginate)
 
 const PostModel = model('Post', postSchema)
 

@@ -5,7 +5,13 @@ import * as Response from '../utils/http_status_codes.js'
 
 export async function index (req, res) {
   try {
-    const posts = await PostModel.find().exec()
+    const { page = 1, limit = 10 } = req.query
+    const options = {
+      page: parseInt(page, 10),
+      limit: parseInt(limit, 10)
+    }
+
+    const posts = await PostModel.paginate({}, options)
     return res.status(Response.HTTP_OK).json({ posts })
   } catch (error) {
     console.error('Error: ', error)
@@ -121,6 +127,7 @@ export async function destroy (req, res) {
 export async function search (req, res) {
   try {
     const query = {}
+    const { page = 1, limit = 10 } = req.query
     const { title, author, description } = req.query ?? {}
 
     if (title) {
@@ -135,7 +142,12 @@ export async function search (req, res) {
       query.description = { $regex: description, $options: 'i' }
     }
 
-    const posts = await PostModel.find(query)
+    const options = {
+      page: parseInt(page, 10),
+      limit: parseInt(limit, 10)
+    }
+
+    const posts = await PostModel.paginate(query, options)
     return res.status(Response.HTTP_OK).json({ posts })
   } catch (error) {
     console.error('Error: ', error)
